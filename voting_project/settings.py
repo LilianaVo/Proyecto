@@ -79,11 +79,10 @@ WSGI_APPLICATION = 'voting_project.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Esta lógica es muy útil:
-        # 1. Si estamos en internet (Render), busca una base de datos real (PostgreSQL).
-        # 2. Si estamos en tu compu, usa el archivo local 'db.sqlite3'.
-        default=config('DATABASE_URL', default=f'sqlite:///{BASE_DIR}/db.sqlite3'),
-        conn_max_age=600 # Mantiene la conexión viva un rato para ir más rápido
+        # Busca la variable DATABASE_URL en Render.
+        # Si no la encuentra (tu PC), usa SQLite.
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600
     )
 }
 
