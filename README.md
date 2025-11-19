@@ -1,8 +1,3 @@
-Aquí tienes tu **README.md completamente armado, organizado y con formato profesional**.
-Incluye todo lo que escribiste + lo que pediste que agregara, con una estructura clara, emojis, tablas y secciones limpias.
-
----
-
 # 🗳️ Sistema de Votación Electrónica Seguro (Criptografía)
 
 Este proyecto es una plataforma web desarrollada en **Django** que implementa un sistema de votación seguro. Utiliza estándares criptográficos avanzados (**RSA y AES**) para garantizar la **confidencialidad, integridad y no repudio** de cada voto emitido.
@@ -181,14 +176,7 @@ exit()
 * **Lee Obando Ileana Verónica**
 
 **Materia:** Criptografía
+**Profesor:** Dr. Alfonso Francisco De Abiega L Eglisse
+**Grupo:** 02
 **Facultad de Ingeniería - UNAM**
 
----
-
-Si quieres, puedo generar también:
-✅ Un **logo** del proyecto
-✅ Una **licencia MIT** o GPL
-✅ Un **diagrama del flujo criptográfico**
-✅ Las **imágenes** de ejemplo para el README
-
-Solo pídemelo.
