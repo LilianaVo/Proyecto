@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %} {# Asegúrate de cargar static si vas a usar una imagen #}
+
+{% block title %}Sesión Cerrada - Sistema de Votación{% endblock title %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f0f2f5; /* Un gris muy claro para un fondo suave */
+    }
+    .logout-container {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más definida */
+        padding: 4rem 2rem; /* Más padding interno */
+        margin-top: 5rem; /* Más espacio superior */
+        max-width: 600px; /* Ancho máximo para el contenido */
+        text-align: center;
+    }
+    .logout-icon {
+        font-size: 6rem; /* Icono mucho más grande */
+        color: #28a745; /* Verde de éxito */
+        margin-bottom: 2rem; /* Espacio debajo del icono */
+        animation: fadeIn 1s ease-out; /* Animación de aparición suave */
+    }
+    /* Si usas una imagen en lugar de un icono, estos estilos serán para ella */
+    .logout-image {
+        max-width: 80%; /* Ajusta el tamaño de la imagen */
+        height: auto;
+        margin-bottom: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .logout-title {
+        font-size: 2.8rem; /* Título principal grande */
+        font-weight: 800;
+        color: #1a2b41; /* Color principal de tu proyecto */
+        margin-bottom: 1.5rem;
+    }
+    .logout-message {
+        font-size: 1.25rem; /* Mensaje de cierre más grande */
+        color: #3f516d; /* Tono de gris azulado */
+        line-height: 1.6;
+        margin-bottom: 2.5rem; /* Espacio antes del botón */
+    }
+    .btn-login-again {
+        background-color: #007bff; /* Azul primario */
+        border-color: #007bff;
+        font-size: 1.3rem; /* Botón más grande */
+        padding: 0.9rem 3.5rem;
+        border-radius: 50px; /* Botón redondeado */
+        font-weight: 700;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+    }
+    .btn-login-again:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 123, 255, 0.4);
+    }
+    hr {
+        border-top: 1px solid #e9ecef; /* Línea divisoria suave */
+        margin: 2.5rem 0;
+    }
+
+    /* Animación de entrada para el icono */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+
+<div class="container d-flex justify-content-center">
+    <div class="logout-container">
+        {# OPCIÓN 1: Usar un icono grande de Bootstrap #}
+        <i class="bi bi-check-circle-fill logout-icon"></i>
+        
+        {# OPCIÓN 2: Usar una imagen personalizada (Descomenta y cambia la ruta si tienes una imagen) #}
+        {# <img src="{% static 'img/security_lock_success.png' %}" alt="Sesión Cerrada con Éxito" class="logout-image"> #}
+
+        <h1 class="logout-title">¡Sesión Cerrada con Éxito!</h1>
+        
+        <p class="logout-message">
+            Ha cerrado su sesión de forma segura en el <strong>Sistema de Votación Criptográfica</strong>.
+            Agradecemos su participación y compromiso con la transparencia.
+        </p>
+
+        <hr>
+
+        <p class="logout-message">
+            Inicie sesión nuevamente si desea consultar su voto o revisar los resultados del sistema.
+        </p>
+        
+        <a href="{% url 'login' %}" class="btn btn-login-again">
+            <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+        </a>
+    </div>
+</div>
+{% endblock content %}

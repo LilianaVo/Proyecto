@@ -1,0 +1,180 @@
+{% extends "base.html" %} 
+{% block title %}Créditos y Documentación{% endblock title %}
+
+{% block content %}
+<style>
+    /* VARIABLES DE COLOR PARA PROFESIONALISMO */
+    :root {
+        --color-primary: #1a2b41; /* Azul Medianoche (Base de tu Navbar) */
+        --color-secondary: #007bff; /* Azul de énfasis */
+        --color-text-dark: #3f516d;
+        --color-bg-light: #f8f9fa; /* Gris muy claro */
+    }
+
+    /* ESTILOS DE CABECERA Y DESCRIPCIÓN */
+    .credits-header {
+        background: linear-gradient(135deg, var(--color-bg-light), #e0f2f7); 
+        padding: 4rem 0;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+        margin-bottom: 3rem; 
+    }
+    .credits-header h1 {
+        font-size: 3.8rem; 
+        font-weight: 900;
+        color: var(--color-primary); 
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        letter-spacing: -0.05em; 
+    }
+    .credits-header .lead {
+        font-size: 1.25rem; 
+        color: var(--color-text-dark); 
+        line-height: 1.7; 
+        max-width: 900px;
+        margin: 1.5rem auto; 
+        padding: 0 15px; 
+    }
+
+    /* ESTILOS DE TARJETAS ACADÉMICAS */
+    .card-academic {
+        border: 1px solid rgba(0, 123, 255, 0.1); 
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+    }
+    .card-academic:hover {
+        transform: translateY(-5px); 
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+    .card-academic .card-title {
+        font-size: 1.4rem;
+        color: var(--color-primary); 
+        font-weight: 700;
+        padding-bottom: 0.75rem;
+        margin-bottom: 1rem;
+        border-bottom: 3px solid var(--color-primary); 
+        border-radius: 0;
+    }
+    .card-academic ul li {
+        font-size: 1.15rem; /* AUMENTO DE TAMAÑO DE FUENTE EN LISTAS */
+        margin-bottom: 0.8rem;
+    }
+    .card-academic ul li strong {
+        color: var(--color-primary);
+    }
+    /* TAMAÑO DE FUENTE PARA LA DESCRIPCIÓN PEQUEÑA DE INTEGRANTES */
+    .card-academic .small {
+        font-size: 1rem !important; 
+        margin-top: 1rem !important;
+    }
+
+    /* ESTILOS DE SECCIÓN GITHUB (TRANSPARENCIA) */
+    .github-section {
+        background-color: var(--color-bg-light); 
+        padding: 3.5rem;
+        border-radius: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        margin-top: 5rem;
+    }
+    .github-section h3 {
+        font-size: 2.2rem;
+        color: var(--color-secondary); 
+        font-weight: 800;
+    }
+    .github-section .lead {
+        font-size: 1.25rem; /* AUMENTO DE TAMAÑO DE FUENTE EN DESCRIPCIÓN GITHUB */
+    }
+    .btn-github {
+        background-color: var(--color-secondary);
+        border-color: var(--color-secondary);
+        font-size: 1.3rem;
+        padding: 0.8rem 3rem;
+        border-radius: 8px; 
+        font-weight: 700;
+    }
+    .btn-github:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    .icon-large {
+        font-size: 2.5rem; 
+        color: var(--color-secondary);
+    }
+    .icon-card {
+        font-size: 1.8rem; 
+        color: var(--color-primary); 
+        margin-right: 10px;
+    }
+</style>
+
+<div class="credits-header text-center">
+    <div class="container">
+        <h1 class="mb-4">
+            <i class="bi bi-award icon-large me-3 text-secondary"></i> Créditos del Proyecto y Documentación
+        </h1>
+        
+        <p class="lead text-center px-lg-5">
+            Este software fue desarrollado como proyecto final de la asignatura 
+            <strong>Criptografía</strong>. Su propósito es garantizar la 
+            <strong>Confidencialidad</strong>, <strong>Integridad</strong>, 
+            <strong>Autenticidad</strong> y <strong>No Repudio</strong> de los votos 
+            mediante la implementación de algoritmos criptográficos avanzados 
+            como <strong>RSA</strong> para firmas digitales y gestión de claves, y 
+            <strong>AES</strong> para el cifrado seguro de la información.  
+            El sistema incorpora un registro auditable, comprobantes verificables 
+            y mecanismos de protección diseñados para asegurar un proceso de votación 
+            confiable y resistente a manipulaciones.
+        </p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center g-4"> 
+        <div class="col-md-5 col-lg-4">
+            <div class="card card-academic h-100 p-4">
+                <h5 class="card-title">
+                    <i class="bi bi-building-columns icon-card"></i> Información de la Materia
+                </h5>
+                <ul class="list-unstyled text-start mt-4">
+                    <li><strong>Materia:</strong> Criptografía</li>
+                    <li><strong>Profesor:</strong> Dr. Alfonso Francisco De Abiega L Eglisse</li>
+                    <li><strong>Grupo / Semestre:</strong> 02 / 2026-1</li>
+                    <li><strong>Institución:</strong> Facultad de Ingeniería UNAM</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-5 col-lg-4">
+            <div class="card card-academic h-100 p-4">
+                <h5 class="card-title">
+                    <i class="bi bi-person-workspace icon-card"></i> Integrantes del Equipo
+                </h5>
+                <ul class="list-unstyled text-start mt-4">
+                    <li>Roja Mares Luis Iván</li>
+                    <li>Lee Obando Ileana Verónica</li>
+                </ul>
+                <p class="small mt-4 text-muted">
+                    Proyecto final desarrollado para la asignatura de Criptografía, con un enfoque en la seguridad y la criptografía aplicada.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    {% if github_url %}
+    <div class="github-section text-center">
+        <h3 class="mb-3">
+            <i class="bi bi-git me-3"></i> Código Fuente del Proyecto
+        </h3>
+        <p class="lead mb-4">
+            Revisa el código completo del proyecto en GitHub para auditoría y referencia. La <strong>transparencia</strong> es clave para la confianza en sistemas criptográficos.
+        </p>
+        
+        <a href="{{ github_url }}" class="btn btn-github shadow-lg" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-github me-2"></i> VER REPOSITORIO DE GITHUB
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

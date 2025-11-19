@@ -1,0 +1,12 @@
+# Entornos Virtuales
+venv/
+__pycache__/
+
+# Archivos de Django y Base de Datos
+*.log
+*.pot
+*.mo
+*.pyc
+db.sqlite3
+/media/
+/staticfiles/

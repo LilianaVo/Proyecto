@@ -1,0 +1,57 @@
+{% extends "base.html" %} 
+{% block title %}Acceso al Sistema Criptográfico{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* Estilo de fondo específico para la página de login/logout */
+    body {
+        background: linear-gradient(135deg, #2979ff 0%, #1565c0 100%);
+    }
+    .navbar {
+        background-color: transparent !important; /* Barra transparente en login */
+        box-shadow: none !important;
+    }
+</style>
+{% endblock extra_head %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 pt-5">
+    <div class="col-md-5">
+        <div class="card shadow-xl border-0 rounded-4" style="padding: 2.5rem;">
+            <div class="text-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#2979ff" class="bi bi-person-lock" viewBox="0 0 16 16">
+                  <path d="M10.5 5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0m.422 4.292 2.36 2.36a.75.75 0 0 1-.363 1.292l-2.022.359.359-2.022a.75.75 0 0 1 1.292-.363zm-5.744-1.292a.25.25 0 0 1-.013.012c-.378.114-.77.214-1.162.296-.54.113-1.092.176-1.648.176-.74 0-1.46-.07-2.146-.207-.577-.113-1.077-.286-1.5-.5.06-.327.34-.69.83-.872.274-.105.582-.164.912-.195.53-.046 1.093-.075 1.67-.075.467 0 .918.043 1.353.111.44.07.868.17 1.282.297.013.004.024.009.034.013a.25.25 0 0 1 .159.25z"/>
+                  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m0-1a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                  <path d="M14 13h-3v-1h3v1z"/>
+                </svg>
+                <h3 class="fw-bolder mt-3 mb-0 text-dark">ACCESO RESTRINGIDO</h3>
+                <p class="small text-muted">Sistema de Votación Nacional</p>
+            </div>
+            
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="id_username" class="form-label fw-semibold">ID de Usuario:</label>
+                    <input type="text" name="username" id="id_username" class="form-control form-control-lg rounded-pill" required placeholder="Ingrese su usuario">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="id_password" class="form-label fw-semibold">Contraseña:</label>
+                    <input type="password" name="password" id="id_password" class="form-control form-control-lg rounded-pill" required placeholder="Contraseña Segura">
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow">ACCEDER</button>
+                </div>
+                
+                <input type="hidden" name="next" value="{% url 'voting:vote_submit' %}">
+            </form>
+            
+            <p class="text-center mt-3 small">
+                ¿No tienes cuenta? <a href="{% url 'register' %}" class="fw-bold text-primary">Regístrate aquí</a>.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

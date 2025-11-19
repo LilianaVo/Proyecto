@@ -1,0 +1,39 @@
+{% extends "base.html" %} 
+{% block title %}Voto Procesado{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-7">
+        <div class="card shadow-lg border-success">
+            <div class="card-body p-5 text-center">
+                <div class="text-success mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.497l-1.62-1.62a.75.75 0 0 0-1.08 1.054l2.053 2.053a.75.75 0 0 0 1.08-.022l4.358-5.719a.75.75 0 0 0-.022-1.08z"/>
+                    </svg>
+                </div>
+                
+                <h1>¡Su voto ha sido procesado!</h1>
+                <p class="lead">Su identidad fue validada mediante su llave privada. El contenido de su voto ha sido firmado digitalmente.</p>
+                
+                <h5 class="mt-4 mb-3">Comprobante Digital</h5>
+                
+                <div class="bg-light p-3 border rounded text-break">
+                    <p class="small text-muted mb-0">Conserve esta firma. Podrá usarla para verificar su participación y la integridad de su voto en el Tablero de Resultados.</p>
+                    <code class="d-block mt-2 fw-bold text-dark">
+                        {{ signature }}
+                    </code>
+                </div>
+
+                <div class="mt-5 d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{% url 'voting:results_dashboard' %}" class="btn btn-primary btn-lg">
+                        Verificar en el Tablero Público
+                    </a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-secondary btn-lg">
+                        Salir / Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

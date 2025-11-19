@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+{% block title %}Generar Llave Criptográfica{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="fw-bolder mb-4 text-dark fs-2">
+                <span class="text-warning">🔑</span> Generación de Llave Privada
+            </h1>
+            
+            <div class="card shadow-xl border-0 rounded-4">
+                <div class="card-body p-5">
+                    
+                    {% if profile.public_key %}
+                        <div class="alert alert-success mt-3 p-4 fw-bold shadow-sm" role="alert">
+                            ¡Llave pública ya generada y guardada!
+                        </div>
+                        
+                        <p class="lead mt-4">Tu llave privada es <strong>ABSOLUTAMENTE NECESARIA</strong> para firmar tu voto. Si ya la descargaste, puedes continuar. Si la perdiste, descárgala de nuevo.</p>
+                        
+                        <form method="post" class="mt-4">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning btn-lg fw-bold rounded-pill shadow">
+                                <span class="bi bi-download me-2"></span> Re-descargar Llave Privada (.key)
+                            </button>
+                        </form>
+                    
+                    {% else %}
+                        <p class="lead">Este certificado contiene su clave única de votación. Asegúrese de generar y guardar su llave privada para ejercer su derecho al voto.</p>
+                        <p class="text-danger fw-bold mt-4"><strong style="color: red;">⚠️ ¡ADVERTENCIA!</strong> Este archivo es privado y no se recupera si lo pierdes. No lo compartas ni lo elimines.</p>
+
+                        <form method="post" class="mt-5">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-lg fw-bold rounded-pill shadow">
+                                <span class="bi bi-key me-2"></span> Generar y Descargar Llave Privada (.key)
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                    <div class="mt-5 border-top pt-4">
+                        <p class="small text-success fw-semibold mb-0">✓ Su seguridad está protegida: La llave pública se asocia a su perfil para verificar su firma.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

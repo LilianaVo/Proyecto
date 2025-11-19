@@ -1,0 +1,97 @@
+{% extends "base.html" %} 
+{% block title %}Registro de Votantes{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 pt-4">
+    <div class="col-md-6 col-lg-5"> {# Ancho un poco más controlado para mejor lectura #}
+        <div class="card shadow-lg border-0 rounded-4" style="padding: 2.5rem;">
+            <div class="text-center mb-4">
+                {# --- NUEVO: Ícono para el encabezado --- #}
+                <div class="mb-3"> 
+                    <i class="bi bi-person-check-fill text-primary display-4"></i> {# Un ícono de persona con check, grande y azul #}
+                </div>
+                {# --------------------------------------- #}
+
+                <h3 class="fw-bolder mt-3 mb-0 text-dark">CREAR CUENTA DE VOTANTE</h3>
+                <p class="small text-muted mb-4">Su perfil de votación criptográfica será creado automáticamente.</p>
+            </div>
+            
+            {# Mensajes globales de Django #}
+            {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show d-flex align-items-center" role="alert">
+                            {% if message.tags == 'success' %}
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                            {% elif message.tags == 'error' %}
+                                <i class="bi bi-exclamation-octagon-fill me-2"></i>
+                            {% elif message.tags == 'info' %}
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                            {% elif message.tags == 'warning' %}
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            {% endif %}
+                            <div>{{ message }}</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {# Contenedor más estilizado para los requisitos #}
+            <div class="alert alert-info border-info border-start border-5 rounded-3 ps-3 py-2 mb-4 d-flex align-items-center" role="alert">
+                <i class="bi bi-shield-lock-fill fs-4 text-info me-3"></i> {# Icono más grande y visible #}
+                <div>
+                    <h6 class="alert-heading fw-bold mb-1">Requisitos de Seguridad</h6>
+                    <ul class="list-unstyled small mb-0"> {# list-unstyled para quitar los puntos por defecto #}
+                        <li class="d-flex align-items-start mb-1">
+                            <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                            <span>Debe usar un <strong>correo real</strong> (contener @ y dominio válido como gmail.com, outlook.com, unam.mx, etc.).</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-1">
+                            <i class="bi bi-exclamation-triangle-fill text-warning me-2 mt-1"></i>
+                            <span>No se permiten espacios ni caracteres especiales peligrosos (ej. `&`, `$`, `<`, `>`, `""`, `''`).</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-1">
+                            <i class="bi bi-slash-circle-fill text-danger me-2 mt-1"></i>
+                            <span>Los correos temporales/desechables (ej. 10minutemail) están <strong>bloqueados</strong>.</span>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <i class="bi bi-lock-fill text-primary me-2 mt-1"></i>
+                            <span>La contraseña debe ser robusta (mínimo 8 caracteres, mayúsculas, minúsculas, números y símbolos).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <form method="post" action="{% url 'register' %}" class="needs-validation" novalidate> {# Añadimos validación de Bootstrap #}
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}:</label>
+                        {{ field }} {# Aseguramos que siempre tenga la clase form-control #}
+                        
+                        {% if field.help_text %}
+                            <div class="form-text text-muted small mt-1">{{ field.help_text }}</div>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback d-block mt-1"> {# d-block para que el error siempre se muestre #}
+                                <i class="bi bi-exclamation-circle-fill me-1"></i> {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm">REGISTRARSE</button>
+                </div>
+            </form>
+            
+            <p class="text-center mt-3 small">
+                ¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="fw-bold text-primary text-decoration-none">Iniciar Sesión aquí</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

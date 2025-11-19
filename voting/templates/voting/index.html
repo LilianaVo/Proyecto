@@ -1,0 +1,110 @@
+{% extends "base.html" %} 
+{% block title %}Inicio - Sistema Criptográfico Nacional{% endblock title %}
+
+{% block content %}
+<style>
+    /* Estilos específicos para la página de inicio */
+    .hero-section {
+        background-color: #1a2b41; /* Color principal de la navbar */
+        color: white;
+        padding: 6rem 0; /* Mayor altura */
+        border-radius: 0 0 1.5rem 1.5rem; /* Bordes suaves abajo */
+    }
+    .hero-section h1 {
+        font-size: 3.5rem; /* Título más grande */
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+    }
+    .hero-section p {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+    .btn-hero {
+        font-size: 1.2rem;
+        padding: 0.8rem 2.5rem;
+        background-color: #ffc107; /* Amarillo de advertencia/atención */
+        border-color: #ffc107;
+        color: #1a2b41;
+        font-weight: bold;
+        transition: background-color 0.2s;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+    }
+    .btn-hero:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+        color: #1a2b41;
+    }
+    .security-icon {
+        font-size: 3rem; /* Iconos grandes */
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="hero-section text-center mb-5">
+    <div class="container">
+        <h1 class="display-3">Tu Decisión es Clave, Tu Voto es Secreto.</h1>
+        <p class="lead fw-normal">
+            Plataforma que garantiza la <strong>Confidencialidad</strong> y el <strong>No Repudio</strong> mediante criptografía avanzada (RSA y AES).
+        </p>
+        
+        <a href="{% url 'voting:vote_submit' %}" class="btn btn-hero mt-3">
+            ACCEDER AL SISTEMA DE VOTO
+        </a>
+    </div>
+</div>
+<div class="container my-5 pt-4">
+    <div class="text-center mb-5">
+        <h2 class="fw-bolder text-dark">PRINCIPIOS CLAVE DE SEGURIDAD</h2>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg h-100 p-4 text-center">
+                <div class="card-body">
+                    <span class="security-icon text-warning">🔒</span>
+                    <h5 class="card-title fw-bold">NO REPUDIO (RSA)</h5>
+                    <p class="card-text small text-muted">
+                        Cada voto es firmado digitalmente con su certificado único (llave privada). Es la prueba irrefutable de la autoría.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg h-100 p-4 text-center">
+                <div class="card-body">
+                    <span class="security-icon text-primary">🔑</span>
+                    <h5 class="card-title fw-bold">CONFIDENCIALIDAD (AES-256)</h5>
+                    <p class="card-text small text-muted">
+                        La opción elegida es cifrada con AES-256 antes de ser guardada. Nadie puede saber el contenido del voto individual.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg h-100 p-4 text-center">
+                <div class="card-body">
+                    <span class="security-icon text-danger">🛡️</span>
+                    <h5 class="card-title fw-bold">INTEGRIDAD (HASH & TIMESTAMP)</h5>
+                    <p class="card-text small text-muted">
+                        El registro de votos está protegido con un hash y un Timestamp inmutable para detectar cualquier intento de alteración de los datos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-5">
+        <a href="{% url 'voting:results_dashboard' %}" class="btn btn-outline-secondary fw-semibold">
+            Ver Registro de Auditoría
+        </a>
+        
+        <a href="{% url 'voting:credits' %}" class="btn btn-outline-primary fw-semibold ms-3">
+            CRÉDITOS Y DETALLES ACADÉMICOS
+        </a>
+    </div>
+</div>
+
+{% endblock content %}

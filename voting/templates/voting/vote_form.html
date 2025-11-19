@@ -1,0 +1,119 @@
+{% extends "base.html" %} 
+{% block title %}Urna Digital Segura{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-xl rounded-4">
+                <div class="card-header card-header-voto text-center py-4">
+                    <h2 class="fw-bolder mb-0">🗳️ ENCUESTA FINAL DE CÁTEDRA</h2>
+                    <p class="mb-0 small text-light">Su opinión es anónima y esencial para el próximo semestre.</p>
+                </div>
+                <div class="card-body p-5">
+                    
+                    {% if profile.has_voted %}
+                        <div class="alert alert-warning text-center fw-bold shadow-sm">
+                            <strong>Voto Emitido.</strong> Ya ha registrado su voto en el sistema.
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="{% url 'voting:results_dashboard' %}" class="btn btn-primary btn-lg fw-bold">Ver Auditoría de Votos</a>
+                        </div>
+                    {% elif not profile.public_key %}
+                        <div class="alert alert-danger text-center fw-bold shadow-sm">
+                            <strong>REQUERIDO: Llave de Firma Faltante.</strong> Por favor, navegue a "Generar Llave" para obtener su certificado.
+                        </div>
+                    {% else %}
+                        <form method="post" action="{% url 'voting:vote_submit' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="mb-5 p-4 border rounded section-btn">
+                                <h4 class="text-dark fw-bolder mb-2">1. ¿Cuál fue tu nivel de interés general en los temas vistos en la clase?</h4>
+                                <p class="small text-muted mb-4 border-bottom pb-2">El interés general en los conceptos de criptografía.</p>
+                                
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_1" id="q1_a" value="ALTO" required>
+                                    <label class="form-check-label fw-semibold" for="q1_a">Alto</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_1" id="q1_b" value="MEDIO">
+                                    <label class="form-check-label fw-semibold" for="q1_b">Medio</label>
+                                </div>
+                                <div class="form-check form-check-lg">
+                                    <input class="form-check-input" type="radio" name="pregunta_1" id="q1_c" value="BAJO">
+                                    <label class="form-check-label fw-semibold" for="q1_c">Bajo</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-5 p-4 border rounded section-btn">
+                                <h4 class="text-dark fw-bolder mb-2">2. En general, ¿cómo te pareció la dificultad de las tareas y proyectos del curso?</h4>
+                                <p class="small text-muted mb-4 border-bottom pb-2">Evaluación del nivel de dificultad.</p>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_2" id="q2_a" value="FACIL" required>
+                                    <label class="form-check-label fw-semibold" for="q2_a">Fáciles</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_2" id="q2_b" value="ADECUADO">
+                                    <label class="form-check-label fw-semibold" for="q2_b">Adecuados</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_2" id="q2_c" value="DIFICIL">
+                                    <label class="form-check-label fw-semibold" for="q2_c">Difíciles</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-5 p-4 border rounded section-btn">
+                                <h4 class="text-dark fw-bolder mb-2">3. ¿Consideras que los conceptos aprendidos en la clase te serán útiles?</h4>
+                                <p class="small text-muted mb-4 border-bottom pb-2">Aplicabilidad práctica y profesional de los conocimientos.</p>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_3" id="q3_a" value="MUCHO" required>
+                                    <label class="form-check-label fw-semibold" for="q3_a">Sí, mucho</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_3" id="q3_b" value="TAL-VEZ">
+                                    <label class="form-check-label fw-semibold" for="q3_b">Tal vez</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_3" id="q3_c" value="NO-DUDA">
+                                    <label class="form-check-label fw-semibold" for="q3_c">No, lo dudo</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-5 p-4 border rounded section-btn">
+                                <h4 class="text-dark fw-bolder mb-2">4. ¿Cómo calificarías el ritmo al que se cubrieron los temas durante el semestre?</h4>
+                                <p class="small text-muted mb-4 border-bottom pb-2">Evaluación de la velocidad de enseñanza.</p>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_4" id="q4_a" value="RAPIDO" required>
+                                    <label class="form-check-label fw-semibold" for="q4_a">Muy rápido</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_4" id="q4_b" value="ADECUADO">
+                                    <label class="form-check-label fw-semibold" for="q4_b">Adecuado</label>
+                                </div>
+                                <div class="form-check form-check-lg mb-3">
+                                    <input class="form-check-input" type="radio" name="pregunta_4" id="q4_c" value="LENTO">
+                                    <label class="form-check-label fw-semibold" for="q4_c">Muy lento</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-5 p-4 border rounded bg-white shadow-sm">
+                                <h4 class="text-secondary fw-bolder mb-3">5. Certificado de Identidad (Llave Privada)</h4>
+                                <p class="text-muted small">Su llave personal le permite emitir su voto de forma segura y privada...</p>
+                                
+                                <label for="private_key" class="form-label fw-bold">Subir Archivo de Llave Privada (.key o .pem):</label>
+                                <input class="form-control form-control-lg rounded-3" type="file" id="private_key" name="private_key" accept=".key, .pem" required>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow">
+                                    FIRMAR Y DEPOSITAR VOTO
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

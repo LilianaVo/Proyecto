@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Guía de Votación - Sistema Criptográfico{% endblock title %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark mb-3">¿Cómo funciona el proceso de voto?</h2>
+                <p class="text-muted fs-5">Sigue estos 4 pasos para ejercer tu voto de manera segura, anónima y auditable.</p>
+            </div>
+
+            <div class="row g-4">
+                
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm hover-effect border-0">
+                        <div class="card-body p-4 text-center">
+                            <div class="mb-3">
+                                <span class="badge bg-primary p-3 rounded-circle">
+                                    <i class="bi bi-key-fill fs-3 text-white"></i>
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-primary">1. Generar Llave</h4>
+                            <p class="text-muted mt-3">
+                                El sistema generará un par de llaves criptográficas únicas para ti. 
+                                <strong>Se descargará automáticamente un archivo (tu llave privada).</strong>
+                                <br><span class="text-danger small">¡Guarda este archivo! Lo necesitarás para firmar tu voto.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm hover-effect border-0">
+                        <div class="card-body p-4 text-center">
+                            <div class="mb-3">
+                                <span class="badge bg-success p-3 rounded-circle">
+                                    <i class="bi bi-pencil-square fs-3 text-white"></i>
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-success">2. Emitir Voto</h4>
+                            <p class="text-muted mt-3">
+                                Responde la encuesta y adjunta el archivo de llave privada que descargaste en el paso anterior.
+                                El sistema usará este archivo para <strong>firmar digitalmente</strong> tu elección, garantizando que eres tú sin revelar tu identidad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm hover-effect border-0">
+                        <div class="card-body p-4 text-center">
+                            <div class="mb-3">
+                                <span class="badge bg-info p-3 rounded-circle">
+                                    <i class="bi bi-bar-chart-fill fs-3 text-white"></i>
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-info">3. Tablero Público</h4>
+                            <p class="text-muted mt-3">
+                                Una vez procesado, puedes ver las <strong>gráficas en tiempo real</strong>.
+                                Podrás observar cómo se distribuyen los votos de todos los participantes de manera transparente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm hover-effect border-0">
+                        <div class="card-body p-4 text-center">
+                            <div class="mb-3">
+                                <span class="badge bg-warning text-dark p-3 rounded-circle">
+                                    <i class="bi bi-patch-check-fill fs-3"></i>
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-warning">4. Verificación</h4>
+                            <p class="text-muted mt-3">
+                                Al finalizar, obtendrás un <strong>Comprobante Digital</strong>.
+                                Puedes ir a la sección "Verificar mi Voto" para confirmar que tu participación se encuentra registrada.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <p class="mb-3">¿Listo para comenzar?</p>
+                <a href="{% url 'voting:generate_keys' %}" class="btn btn-primary btn-lg px-5 rounded-pill fw-bold shadow">
+                    <i class="bi bi-play-circle-fill me-2"></i> Iniciar Proceso
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+</style>
+{% endblock content %}

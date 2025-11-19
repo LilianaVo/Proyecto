@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Sistema Criptográfico Nacional{% endblock title %}</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f3f6; /* Gris muy claro para el fondo */
+        }
+        .navbar {
+            background-color: #1a2b41 !important; /* Azul medianoche (Institucional) */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            border: none; /* Eliminar bordes de tarjeta */
+            border-radius: 0.75rem; /* Bordes ligeramente redondeados */
+        }
+        .card-header-voto {
+            background-color: #1a2b41; /* Azul medianoche */
+            color: white;
+            border-bottom: none;
+            border-radius: 0.75rem 0.75rem 0 0;
+        }
+        .btn-primary {
+            background-color: #2979ff; /* Azul vibrante para CTA */
+            border-color: #2979ff;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #1c52d4;
+            border-color: #1c52d4;
+        }
+        .section-btn {
+            background-color: #e3f2fd; /* Fondo claro */
+            color: #1a2b41;
+            border: 1px solid #bbdefb;
+            border-radius: 0.5rem;
+        }
+        .section-btn:hover {
+            background-color: #bbdefb;
+        }
+    </style>
+    
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-5" href="{% url 'voting:vote_submit' %}">
+                <i class="bi bi-lock-fill me-2"></i> Sistema Criptográfico Nacional
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    
+                    {% if user.is_authenticated %}    
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold text-info" href="{% url 'voting:guide' %}">
+                                <i class="bi bi-info-circle-fill me-1"></i> Guía de Voto
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'voting:generate_keys' %}">
+                                <i class="bi bi-key-fill me-1"></i> Generar Llave
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'voting:check_key' %}">
+                                <i class="bi bi-shield-check me-1"></i> Validar Llave
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'voting:vote_submit' %}">
+                                <i class="bi bi-pencil-square me-1"></i> Votar
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'voting:results_dashboard' %}">
+                                <i class="bi bi-bar-chart-fill me-1"></i> Tablero Público
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold" href="{% url 'voting:verification_page' %}">
+                                <i class="bi bi-patch-check-fill me-1"></i> Verificar Mi Voto
+                            </a>
+                        </li>
+
+                        {% if user.is_staff %}
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold text-warning" href="{% url 'voting:audit_view' %}">
+                                    <i class="bi bi-eye-fill me-1"></i> Auditoría
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mi Perfil
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                
+                                <li><span class="dropdown-item-text small text-muted">Usuario: {{ user.username }}</span></li>
+                                <li><hr class="dropdown-divider"></li>
+                                
+                                <li>
+                                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-sm btn-primary fw-bold px-3 rounded-pill" href="{% url 'login' %}">ACCEDER</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5">
+        
+        {% if messages %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>
+
+

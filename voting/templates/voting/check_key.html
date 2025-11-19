@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Verificar Estado de Llave{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header-voto p-4 text-center">
+                <h3 class="mb-0"><i class="bi bi-shield-check"></i> Validador de Llave</h3>
+                <p class="text-white-50 mb-0">Verifica si tu archivo es válido y si ya votaste</p>
+            </div>
+            <div class="card-body p-4">
+                
+                <form method="post" enctype="multipart/form-data" class="mb-4">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary fw-bold">
+                            <i class="bi bi-search"></i> Analizar Llave
+                        </button>
+                    </div>
+                </form>
+
+                <hr>
+
+                {% if key_status %}
+                    <div class="mt-4">
+                        <h5 class="text-center mb-3">Resultado del Análisis:</h5>
+
+                        {% if key_status == 'valid_ready' %}
+                            <div class="alert alert-success text-center" role="alert">
+                                <h1 class="display-4"><i class="bi bi-check-circle-fill"></i></h1>
+                                <h4 class="alert-heading">¡Llave Válida y Lista!</h4>
+                                <p>Esta es tu llave correcta y <strong>aún no ha sido usada</strong>.</p>
+                                <hr>
+                                <a href="{% url 'voting:vote_submit' %}" class="btn btn-success fw-bold">Ir a Votar Ahora</a>
+                            </div>
+
+                        {% elif key_status == 'valid_used' %}
+                            <div class="alert alert-warning text-center border-warning" role="alert">
+                                <h1 class="display-4"><i class="bi bi-exclamation-triangle-fill"></i></h1>
+                                <h4 class="alert-heading">Llave Válida pero YA USADA</h4>
+                                <p>Esta llave es correcta y te pertenece, pero el sistema registra que <strong>ya emitiste tu voto</strong>.</p>
+                                <p class="small">No puedes volver a votar con esta llave.</p>
+                                <a href="{% url 'voting:verification_page' %}" class="btn btn-warning text-dark">Ver mi Comprobante</a>
+                            </div>
+
+                        {% elif key_status == 'mismatch' %}
+                            <div class="alert alert-danger text-center" role="alert">
+                                <h1 class="display-4"><i class="bi bi-person-x-fill"></i></h1>
+                                <h4 class="alert-heading">Llave Incorrecta</h4>
+                                <p>Este archivo es una llave válida, pero <strong>no coincide con la registrada en tu perfil</strong>.</p>
+                                <p class="small">¿Quizás es la llave de otro usuario o regeneraste una nueva?</p>
+                            </div>
+
+                        {% elif key_status == 'invalid_format' %}
+                            <div class="alert alert-danger text-center" role="alert">
+                                <h1 class="display-4"><i class="bi bi-file-earmark-x-fill"></i></h1>
+                                <h4 class="alert-heading">Archivo Falso o Corrupto</h4>
+                                <p>El archivo subido <strong>no es una llave RSA válida</strong>.</p>
+                                <p class="small">Asegúrate de subir el archivo .key o .pem original.</p>
+                            </div>
+                        
+                        {% elif key_status == 'no_key_registered' %}
+                            <div class="alert alert-secondary text-center" role="alert">
+                                <h1 class="display-4"><i class="bi bi-question-circle"></i></h1>
+                                <h4 class="alert-heading">Sin Registro Previo</h4>
+                                <p>La llave parece válida, pero tú <strong>aún no has generado ninguna llave</strong> en el sistema.</p>
+                                <a href="{% url 'voting:generate_keys' %}" class="btn btn-dark">Generar mi Llave</a>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
